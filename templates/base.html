@@ -31,13 +31,20 @@
                         <li class="nav-item">
                             <a class="nav-link" href="#"><span class="sr-only fs-3">Union</snap></a>
                         </li>
-                    </ul>
-                </div>
-                <div>
-                    <ul class="navbar-nav">
-                        <li>
-                            <a class="nav-item nav-link" href="{% url 'register:reg' %}"><span class="sr-only fs-3">Register</snap></a>
+                        {% if status.Auth %}
+                        <li class="nav-item dropdown" style="position:absolute; right:10%;">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Welcome, {{status.Name}}!
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="">Settings</a></li>
+                                <li><a class="dropdown-item" href="">Orders</a></li>
+                                <li><a class="dropdown-item" href="" id="sign_out">Sign out</a></li>
+                            </ul>
                         </li>
+                        {% else %}
+                            <li><a class="nav-link" href="{% url 'register:reg' %}"><span class="sr-only fs-3">Register</snap></a></li>
+                        {% endif %}
                     </ul>
                 </div>
             </div>

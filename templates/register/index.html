@@ -1,26 +1,25 @@
 {% extends "base.html" %}
 {% block title %}Registrtion{% endblock %}
 {% block content %}
-            <form method="post" class="d-flex flex-column justify-content-center align-items-center"  style="margin-top: 100px">
-                <div class="mb-3 w-25">
-                    <label class="form-label">Email address</label>
-                    {{ form.email }}
-                </div>
-                <div class="mb-3 w-25">
-                    <label class="form-label">Password</label>
-                    {{ form.password}}
-                </div>
-                <div class="mb-3 w-25">
-                    <label class="form-label">First name</label>
-                    {{ form.first_name }}
-                </div>
-                <div class="mb-3 w-25">
-                    <label class="form-label">Password</label>
-                    {{ form.last_name }}
-                </div>
-                <button type="submit" class="btn btn-primary" style="margin-right: 20px;">Submit</button>
+            <form method="post" class="d-flex flex-column justify-content-center align-items-center"  style="margin-top: 231px; margin-left: 266px; margin-right: -268px">
                 {% csrf_token %}
+                {% for form in forms %}
+                    {% if form.errors %}
+                        {% for error in form.errors%}
+                            <div class="mb-3 w-25">
+                                <label class="form-label">{{form.label}}</label>
+                                {{ form }}
+                                <p style="margin-top:10px; color:red;">{{ error }}</p>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="mb-3 w-25">
+                            <label class="form-label">{{form.label}}</label>
+                            {{ form }}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+                <button type="button" class="btn" style="margin-left: 237px; text-decoration: underline; color:blue;margin-top: -19px;"><a href="{% url 'register:auth'%}">Sign in</a></button>
+                <button type="submit" class="btn btn-primary" style="margin-right: 20px;">Sign up</button>
             </form>
-        
-
 {% endblock %}
