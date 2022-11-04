@@ -101,3 +101,36 @@ class AuthorizationForm(ModelForm):
         else:
             if not exist_account:
                 self._errors["password"] = self.error_class(["Invalid data. Have you made account?"])
+
+
+class SetUpDataForm(ModelForm):
+    password = forms.CharField(max_length=110,widget=PasswordInput(render_value=True, attrs={
+        "class": "form-control",
+        "placeholder": "Password",
+        "type": "password",
+    }))
+    class Meta:
+        model = RegistrationModel
+        exclude = ('role', 'is_active')
+        fileds = ['last_name', 'first_name', 'email', 'password']
+        widgets = {
+            "last_name": TextInput(attrs={
+                "class": "form-control",
+                "placeholder": "Last name",
+                "type": "text",
+                "id": "Last_name",
+                "name": "Last_name"
+            }),
+            "first_name": TextInput(attrs={
+                "class": "form-control",
+                "placeholder": "First name",
+                "type": "text",
+                "id": "password"
+            }),
+            "email": TextInput(attrs={
+                "class": "form-control",
+                "placeholder": "Email",
+                "type": "text",
+            }),
+
+        }

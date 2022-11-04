@@ -2,7 +2,7 @@ import smtplib
 import random
 import string
 from django.shortcuts import render
-from register.forms import RegistrationForm,CodeForm,AuthorizationForm
+from register.forms import RegistrationForm,CodeForm,AuthorizationForm,SetUpDataForm
 from register.models import RegistrationModel, Role
 from django.shortcuts import redirect
 from django.urls import reverse
@@ -52,6 +52,25 @@ def auth(request):
             return render(request, 'register/auth.html', locals())
     forms = AuthorizationForm()
     return render(request, 'register/auth.html', locals())
+def sing_out(request):
+    request.session["Auth"] = False
+    return redirect("/")
+def setup_data(request):
+    data = RegistrationModel.objects.filter(email=request.session["Email"])[0]
+    if request.method == "POST":
+        if request.POST.get("delete"):
+            del request.session["Auth"]
+            del request.session["Name"]
+            del request.session["Email"]
+            RegistrationModel.objects.filter(email=request.session["Email"]).delete()
+            return redirect("/")
+        else:
+            forms = SetUpDataForm(request.POST,instance=data)
+            if forms.is_valid():
+                forms.save()
+                return redirect(reverse("register:update"))
+    forms = SetUpDataForm(instance=data)
+    return render(request,'register/update_data.html',locals())
 def send_email(email,name):
     S = 6  # number of characters in the string.
     # call random.choices() string module to find the string in Uppercase + numeric data.

@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+            <form method="post" class="d-flex flex-column justify-content-center align-items-center"  style="margin-top: 308px; margin-left: 266px; margin-right: -268px">
+                {% csrf_token %}
+                {% for form in forms %}
+                    {% if form.errors %}
+                        {% for error in form.errors%}
+                            <div class="mb-3 w-25">
+                                <label class="form-label">{{form.label}}</label>
+                                {{ form }}
+                                <p style="margin-top:10px; color:red;">{{ error }}</p>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="mb-3 w-25">
+                            <label class="form-label">{{form.label}}</label>
+                            {{ form }}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+                <button type="submit" class="btn btn-primary" style="margin-right: 198px;">Sign in</button>
+            </form>
+            <button type="button" class="btn" style="margin-left: 1020px; text-decoration: underline; color:blue;margin-top: -65px;"><a href="{% url 'register:reg'%}">Sign up</a></button>
+{% endblock %}

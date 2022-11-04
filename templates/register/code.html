@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+<form method="post" class="d-flex flex-column justify-content-center align-items-center"  style="margin-top: 378px;margin-right: -148px;margin-left: 343px">
+    {% csrf_token %}
+    {% for form in forms %}
+        {% if form.errors %}
+            {% for error in form.errors%}
+                <div class="mb-3 w-25"> 
+                    <label class="form-label">{{form.label}}</label>
+                        {{ form }}
+                    <p style="margin-top:10px; color:red;">{{ error }}</p>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="mb-3 w-25"> 
+                <label class="form-label">{{form.label}}</label>
+                    {{ form }}
+            </div>
+        {% endif %}
+    {% endfor %}
+    <button type="submit" class="btn btn-primary" style="margin-right: 152px;margin-top: 10px;">Send code</button>
+</form>
+<form method="post" class="d-flex flex-column justify-content-center align-items-center"  style="margin-top: -72px;margin-right: 26px;margin-left: 375px">
+    {% csrf_token %}
+    <input type="hidden" name="req" id="say" value="again" />
+    <button type="submit" class="btn" style="text-decoration: underline;color:blue;font-size: small;" >Don't get code?Try again.</button>
+</form>
+{% endblock %}
