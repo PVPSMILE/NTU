@@ -22,6 +22,8 @@ class CodeForm(forms.Form):
         elif (self.code).upper() != (self.cleaned_data["code"]).upper():
             self._errors['code'] = self.error_class(['Invalid code.Try again.'])
 class RegistrationForm(ModelForm):
+    def __int__(self):
+        super(RegistrationForm, self).__init__().is_valid()
     repeat_password = forms.CharField(max_length=110, widget=PasswordInput(attrs={
         "placeholder": "Repeat password",
         "type": "password",
@@ -59,7 +61,6 @@ class RegistrationForm(ModelForm):
             
         }
     def clean(self):
-        super(RegistrationForm, self).clean()
         password= self.cleaned_data["password"]
         repeat_password = self.cleaned_data["repeat_password"]
         try:

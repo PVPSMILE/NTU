@@ -23,7 +23,7 @@
                 <div>
                     <ul class="navbar-nav mr-auto mt-2 mt-lg-0 mr-auto">
                         <li class="nav-item active">
-                            <a class="nav-link" href="#"><span class="sr-only fs-3">News</span></a>
+                            <a class="nav-link" href="{% url 'news:new' %}"><span class="sr-only fs-3">News</span></a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'nav:navigation' %}"><span class="sr-only fs-3">Navigation</snap></a>
@@ -49,6 +49,8 @@
                             </li>
                         {% endif %}
                     </ul>
+                    {% block search %}
+                    {% endblock %} 
                 </div>
             </div>
         </nav>

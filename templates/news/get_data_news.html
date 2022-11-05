@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+    {% for search in searches %}
+        <p>{{search.name}}</p>
+        <p>{{search.discription}}</p>
+        <p>{{search.author}}</p>
+        <br>
+    {% endfor %}
+{% endblock %}

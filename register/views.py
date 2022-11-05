@@ -59,10 +59,10 @@ def setup_data(request):
     data = RegistrationModel.objects.filter(email=request.session["Email"])[0]
     if request.method == "POST":
         if request.POST.get("delete"):
+            RegistrationModel.objects.filter(email=request.session["Email"]).delete()
             del request.session["Auth"]
             del request.session["Name"]
             del request.session["Email"]
-            RegistrationModel.objects.filter(email=request.session["Email"]).delete()
             return redirect("/")
         else:
             forms = SetUpDataForm(request.POST,instance=data)
