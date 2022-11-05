@@ -1,4 +1,11 @@
 {% extends "base.html" %}
+{% block search %}
+<form class="d-flex" method="post" style="margin-left: 341px;margin-top: -45px;">
+    {% csrf_token %}
+    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search">
+    <button class="btn btn-outline-success" type="submit">Search</button>
+</form>
+{% endblock %}
 {% block content %}
     {% for search in searches %}
         <p>{{search.name}}</p>
