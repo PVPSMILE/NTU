@@ -7,6 +7,8 @@ app_name = "register"
 
 urlpatterns = [
     # path('auth/', views.index , name='register'),
-    path('registration/', views.reg, name='reg')
+    path('registration/', views.reg, name='reg'),
+    path('login/', views.login, name='auth')
+
     
 ]

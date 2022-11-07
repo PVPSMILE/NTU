@@ -16,4 +16,8 @@ def reg(request):
         else:
             print(False)
     form = RegistrationForm()
-    return render(request, 'register/index.html',locals())
+    return render(request, 'register/register.html', locals())
+
+def login(request):
+    
+    return render(request, 'register/login.html', locals())
