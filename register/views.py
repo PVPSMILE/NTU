@@ -19,12 +19,11 @@ def reg(request):
                   request.session["Code"] = code
                   request.session["Name"] = forms.cleaned_data["first_name"]
                   request.session["Email"] = forms.cleaned_data["email"]
-                  return redirect(reverse("register:codeg"))
+                  return redirect(reverse("register:code"))
         else:
             return render(request, 'register/register.html', locals())
     forms = RegistrationForm()
     return render(request, 'register/register.html',locals())
-
 def send_code(request):
     if request.method == "POST":
         if request.POST.get("req"):
@@ -36,12 +35,11 @@ def send_code(request):
                 data = RegistrationModel.objects.filter(first_name=request.session["Name"],
                                                         email=request.session["Email"]).update(is_active=True)
                 request.session["Auth"] = True
-                return redirect(request, 'register/code.html', locals())
+                return redirect("/")
             else:
-                return render(request, 'register/code.html', locals())
+                return render(request, 'register/codes.html', locals())
     forms = CodeForm(request)
-    return render(request, 'register/code.html',locals())
-
+    return render(request, 'register/codes.html',locals())
 def login(request):
     if request.method == "POST":
         forms = AuthorizationForm(request.POST)
