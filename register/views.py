@@ -1,12 +1,14 @@
 import smtplib
 import random
 import string
+import codecs
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 from django.shortcuts import render
 from register.forms import RegistrationForm,CodeForm,AuthorizationForm,SetUpDataForm
 from register.models import RegistrationModel, Role
 from django.shortcuts import redirect
 from django.urls import reverse
-
 def reg(request):
     if request.method == "POST":
         model = Role.objects.filter(name="Student")[0]
@@ -71,23 +73,38 @@ def setup_data(request):
                 forms.save()
                 return redirect(reverse("register:update"))
     forms = SetUpDataForm(instance=data)
-    return render(request,'register/update_data.html',locals())
+    return render(request,'register/settings.html',locals())
 
 def send_email(email,name):
-    S = 6  # number of characters in the string.
-    # call random.choices() string module to find the string in Uppercase + numeric data.
-    ran = ''.join(random.choices(string.ascii_uppercase + string.digits, k=S))
-    code = ran
-    server = smtplib.SMTP('smtp.gmail.com', 587)
-    server.starttls()
-    server.login('buyahh11@gmail.com', 'shdjnaonlixhfgfz')
+    my_email = "buyahh11@gmail.com"
+    to = email
+    # Create message container - the correct MIME type is multipart/alternative.
+    msg = MIMEMultipart('alternative')
+    msg['Subject'] = "Link"
+    msg['From'] = my_email
+    msg['To'] = to
+    with codecs.open("D://Учебники//index.html",encoding='utf-8', mode='r')  as html_email:
+        text_html = html_email.read()
+        html_email.close()
+        text_with_name = text_html.replace("Name",name)
+        S = 6  # number of characters in the string.
+        # call random.choices() string module to find the string in Uppercase + numeric data.
+        ran = ''.join(random.choices(string.ascii_uppercase + string.digits, k=S))
+        code = ran
+        string_text = 'Hi %s,''We are happy you signed up.To start exploring,please confirm your email address.''Your code is %s' % (name, code)
+        ready_html_text = text_with_name.replace("Code",code)
+        part1 = MIMEText(string_text, 'plain')
+        part2 = MIMEText(ready_html_text, 'html')
+        msg.attach(part1)
+        msg.attach(part2)
+        server = smtplib.SMTP('smtp.gmail.com', 587)
+        server.starttls()
+        server.login('buyahh11@gmail.com', 'shdjnaonlixhfgfz')
 
-    try:
-        server.sendmail('buyahh11@gmail.com',email,              'Hi %s,'
-                                                                 'We are happy you signed up.To start exploring,please confirm your email address.'
-                                                                 'Your code is %s' % (name, code))
-    except:
-        print('An error occurred when trying to send an email')
+        try:
+            server.sendmail(my_email,email,msg.as_string())
+        except:
+            print('An error occurred when trying to send an email')
 
-    server.quit()
-    return code
+        server.quit()
+        return code
