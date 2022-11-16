@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+{% block title %}NEWS{% endblock %}
+{% block page %}NEWS{% endblock %}
+{% block content %}
+    {% if news %}
+        {% for new in news %}
+            <div class="row">  
+                <!-- Earnings (Monthly) Card Example -->
+                <div class="col-xl-12 col-md-12 mb-4">
+                    <p>{{new.name}}</p>
+                    <p>{{new.discription}}</p>
+                    <p>{{new.author}}</p>
+                    <br>
+                </div>
+                <!-- Pending Requests Card Example -->
+            </div>
+        {% endfor %}
+    {% elif filters %}
+        {% for filter in filters %}
+            <div class="row">  
+                <!-- Earnings (Monthly) Card Example -->
+                <div class="col-xl-12 col-md-12 mb-4">
+                    <p>{{filter.name}}</p>
+                    <p>{{filter.discription}}</p>
+                    <p>{{filter.author}}</p>
+                    <br>
+                </div>
+                <!-- Pending Requests Card Example -->
+            </div>
+        {% endfor %}
+    {% elif search_news %}
+        {% for search_new in search_news %}
+            <div class="row">  
+                <!-- Earnings (Monthly) Card Example -->
+                <div class="col-xl-12 col-md-12 mb-4">
+                    <p>{{search_new.name}}</p>
+                    <p>{{search_new.discription}}</p>
+                    <p>{{search_new.author}}</p>
+                    <br>
+                </div>
+                <!-- Pending Requests Card Example -->
+            </div>
+        {% endfor %}
+    {% elif search_similarity_name_news %}
+        {% for search_similarity_name_new in search_similarity_name_news %}
+            <div class="row">  
+                <!-- Earnings (Monthly) Card Example -->
+                <div class="col-xl-12 col-md-12 mb-4">
+                    <p>{{search_similarity_name_new.name}}</p>
+                    <p>{{search_similarity_name_new.discription}}</p>
+                    <p>{{search_similarity_name_new.author}}</p>
+                    <br>
+                </div>
+                <!-- Pending Requests Card Example -->
+            </div>
+        {% endfor %}
+    {% elif search_similarity_discription_news %}
+        {% for search_similarity_discription_new in search_similarity_discription_news %}
+            <div class="row">  
+                <!-- Earnings (Monthly) Card Example -->
+                <div class="col-xl-12 col-md-12 mb-4">
+                    <p>{{search_similarity_discription_new.name}}</p>
+                    <p>{{search_similarity_discription_new.discription}}</p>
+                    <p>{{search_similarity_discription_new.author}}</p>
+                    <br>
+                </div>
+                <!-- Pending Requests Card Example -->
+            </div>
+        {% endfor %}
+    {% elif search_similarity_author_news %}
+        {% for search_similarity_author_new in search_similarity_author_news %}
+            <div class="row">  
+                <!-- Earnings (Monthly) Card Example -->
+                <div class="col-xl-12 col-md-12 mb-4">
+                    <p>{{search_similarity_author_new.name}}</p>
+                    <p>{{search_similarity_author_new.discription}}</p>
+                    <p>{{search_similarity_author_new.author}}</p>
+                    <br>
+                </div>
+                <!-- Pending Requests Card Example -->
+            </div>
+        {% endfor %}
+    {% endif %}  
+{% endblock %}
+{% block filter %}
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="filter" value="War" id="flexCheckDefault">
+                <label class="form-check-label" for="flexCheckDefault">
+                War
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="filter" value="Money" id="flexCheckChecked">
+                <label class="form-check-label" for="flexCheckChecked">
+                Money
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="filter" value="Weather" id="flexCheckChecked">
+                <label class="form-check-label" for="flexCheckChecked">
+                Weather
+                </label>
+            </div>
+            <button type="submit" class="btn btn-primary btn-sm">Find</button>
+        </form>
+{% endblock %}
+{% block search %}
+<form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" method="post">
+{% csrf_token %}
+<div class="input-group">
+    <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
+        aria-label="Search" aria-describedby="basic-addon2" name="search">
+    <div class="input-group-append">
+        <button class="btn btn-primary" type="submit">
+            <i class="fas fa-search fa-sm"></i>
+        </button>
+    </div>
+</div>
+</form>
+{% endblock %}

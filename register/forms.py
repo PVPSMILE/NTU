@@ -23,7 +23,7 @@ class CodeForm(forms.Form):
             self._errors['code'] = self.error_class(['Invalid code.Try again.'])
 class RegistrationForm(ModelForm):
     def __int__(self):
-        super(RegistrationForm, self).__init__().is_valid()
+        super(RegistrationForm, self).__init__()
     repeat_password = forms.CharField(max_length=110, widget=PasswordInput(attrs={
         "placeholder": "Repeat password",
         "type": "password",

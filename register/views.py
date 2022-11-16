@@ -1,3 +1,4 @@
+import os
 import smtplib
 import random
 import string
@@ -74,7 +75,6 @@ def setup_data(request):
                 return redirect(reverse("register:update"))
     forms = SetUpDataForm(instance=data)
     return render(request,'register/settings.html',locals())
-
 def send_email(email,name):
     my_email = "buyahh11@gmail.com"
     to = email
@@ -83,7 +83,8 @@ def send_email(email,name):
     msg['Subject'] = "Link"
     msg['From'] = my_email
     msg['To'] = to
-    with codecs.open("D://Учебники//index.html",encoding='utf-8', mode='r')  as html_email:
+    current_directory = os.path.dirname(os.path.realpath(__file__))
+    with codecs.open(current_directory+"//"+"index.html",encoding='utf-8', mode='r') as html_email:
         text_html = html_email.read()
         html_email.close()
         text_with_name = text_html.replace("Name",name)
@@ -100,11 +101,9 @@ def send_email(email,name):
         server = smtplib.SMTP('smtp.gmail.com', 587)
         server.starttls()
         server.login('buyahh11@gmail.com', 'shdjnaonlixhfgfz')
-
         try:
             server.sendmail(my_email,email,msg.as_string())
         except:
             print('An error occurred when trying to send an email')
-
         server.quit()
         return code
