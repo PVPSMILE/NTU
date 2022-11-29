@@ -35,9 +35,10 @@ def send_code(request):
         else:
             forms = CodeForm(request, request.POST)
             if forms.is_valid():
-                data = RegistrationModel.objects.filter(first_name=request.session["Name"],
-                                                        email=request.session["Email"]).update(is_active=True)
+                data = RegistrationModel.objects.filter(first_name=request.session["Name"],email=request.session["Email"]).update(is_active=True)
+                data2 = RegistrationModel.objects.filter(first_name=request.session["Name"],email=request.session["Email"])[0]
                 request.session["Auth"] = True
+                request.session["Path_Image"] = "/media"+"/profile/"+data2.photo.name
                 return redirect("/")
             else:
                 return render(request, 'register/codes.html', locals())
@@ -51,6 +52,7 @@ def login(request):
             request.session["Name"] = data.first_name
             request.session["Email"] = forms.cleaned_data["email"]
             request.session["Auth"] = data.is_active
+            request.session["Path_Image"] = "/media"+"/profile/"+data.photo.name
             return redirect("/")
         else:
             return render(request, 'register/login.html', locals())
@@ -69,8 +71,12 @@ def setup_data(request):
             del request.session["Email"]
             return redirect("/")
         else:
-            forms = SetUpDataForm(request.POST,instance=data)
+            forms = SetUpDataForm(request.POST,request.FILES,instance=data)
             if forms.is_valid():
+                request.session["Name"] = forms.cleaned_data["first_name"]
+                request.session["Email"] = forms.cleaned_data["email"]
+                name = str(request.FILES["photo"]).replace(" ","_")
+                request.session["Path_Image"] = os.path.join("/media/profile/",name)
                 forms.save()
                 return redirect(reverse("register:update"))
     forms = SetUpDataForm(instance=data)

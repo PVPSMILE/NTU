@@ -38,8 +38,8 @@ class RegistrationForm(ModelForm):
     }))
     class Meta:
         model = RegistrationModel
-        exclude = ('role','is_active')
-        fileds = ['last_name','first_name', 'email', 'password']
+        exclude = ('role','is_active','photo')
+        fields = ['last_name','first_name', 'email', 'password']
         widgets = {
             "last_name": TextInput(attrs={
                 "class": "form-control",
@@ -84,8 +84,8 @@ class AuthorizationForm(ModelForm):
     }))
     class Meta:
         model = RegistrationModel
-        exclude = ('role', 'is_active','last_name', 'first_name')
-        fileds = ['email', 'password']
+        exclude = ('role', 'is_active','last_name', 'first_name','photo')
+        fields = ['email', 'password']
         widgets = {
             "email": TextInput(attrs={
                 "class": "form-control",
@@ -114,7 +114,7 @@ class SetUpDataForm(ModelForm):
     class Meta:
         model = RegistrationModel
         exclude = ('role', 'is_active')
-        fileds = ['last_name', 'first_name', 'email', 'password']
+        fields = ['last_name', 'first_name', 'email', 'password','photo']
         widgets = {
             "last_name": TextInput(attrs={
                 "class": "form-control",
