@@ -5,6 +5,7 @@ import string
 import codecs
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+import django
 from django.shortcuts import render
 from register.forms import RegistrationForm,CodeForm,AuthorizationForm,SetUpDataForm
 from register.models import RegistrationModel, Role
@@ -75,10 +76,15 @@ def setup_data(request):
             if forms.is_valid():
                 request.session["Name"] = forms.cleaned_data["first_name"]
                 request.session["Email"] = forms.cleaned_data["email"]
-                name = str(request.FILES["photo"]).replace(" ","_")
-                request.session["Path_Image"] = os.path.join("/media/profile/",name)
-                forms.save()
-                return redirect(reverse("register:update"))
+                try:
+                    name = str(request.FILES["photo"]).replace(" ","_")
+                except django.utils.datastructures.MultiValueDictKeyError:
+                    forms.save()
+                    return redirect(reverse("register:update"))
+                else:
+                    request.session["Path_Image"] = os.path.join("/media/profile/", name)
+                    forms.save()
+                    return redirect(reverse("register:update"))
     forms = SetUpDataForm(instance=data)
     return render(request,'register/settings.html',locals())
 def send_email(email,name):
