@@ -53,7 +53,7 @@ def login(request):
             request.session["Name"] = data.first_name
             request.session["Email"] = forms.cleaned_data["email"]
             request.session["Auth"] = data.is_active
-            request.session["Path_Image"] = "/media"+"/profile/"+data.photo.name
+            request.session["Path_Image"] = data.photo.url
             return redirect("/")
         else:
             return render(request, 'register/login.html', locals())
