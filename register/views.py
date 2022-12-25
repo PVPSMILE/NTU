@@ -21,6 +21,7 @@ def reg(request):
                   code = send_email(forms.cleaned_data["email"],forms.cleaned_data["first_name"])
                   request.session["Code"] = code
                   request.session["Name"] = forms.cleaned_data["first_name"]
+                  request.session["Surname"] = forms.cleaned_data["last_name"]
                   request.session["Email"] = forms.cleaned_data["email"]
                   return redirect(reverse("register:code"))
         else:
@@ -36,6 +37,7 @@ def send_code(request):
             forms = CodeForm(request, request.POST)
             if forms.is_valid():
                 data = RegistrationModel.objects.filter(first_name=request.session["Name"],
+                                                        last_name=request.session["Surname"],
                                                         email=request.session["Email"]).update(is_active=True)
                 request.session["Auth"] = True
                 return redirect("/")
@@ -66,6 +68,7 @@ def setup_data(request):
             RegistrationModel.objects.filter(email=request.session["Email"]).delete()
             del request.session["Auth"]
             del request.session["Name"]
+            del request.session["Surname"]
             del request.session["Email"]
             return redirect("/")
         else:

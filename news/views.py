@@ -9,10 +9,7 @@ def index(request):
             search_similarity_name_news = PublicationModel.objects.annotate(similarity=TrigramSimilarity("name",request.POST.get("search"))).filter(similarity__gt=0.03).order_by('-similarity')
             search_similarity_discription_news = PublicationModel.objects.annotate(similarity=TrigramSimilarity("discription", request.POST.get("search"))).filter(similarity__gt=0.03).order_by('-similarity')
             search_similarity_author_news = PublicationModel.objects.annotate(similarity=TrigramSimilarity("author", request.POST.get("search"))).filter(similarity__gt=0.03).order_by('-similarity')
-            print(search_similarity_name_news)
-            print(search_similarity_discription_news)
-            print(search_similarity_author_news)
-            print(search_news)
+           
             return render(request, 'news/news.html', locals())
         if request.POST.get("filter"):
             filter = request.POST.getlist("filter")
