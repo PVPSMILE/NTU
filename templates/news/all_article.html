@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% block filter %}
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+            aria-expanded="true" aria-controls="collapseTwo">
+            <i class="fas fa-fw fa-cog"></i>
+            <span>Filters</span>
+        </a>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Custom Filters:</h6>
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="filter" value="Accept" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">
+                        Accept
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="filter" value="Proccesing" id="flexCheckChecked">
+                        <label class="form-check-label" for="flexCheckChecked">
+                        Proccesing
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="filter" value="Refuse" id="flexCheckChecked">
+                        <label class="form-check-label" for="flexCheckChecked">
+                        Refuse
+                        </label>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-sm">Find</button>
+                </form>
+            </div>
+        </div>
+    </li>
+{% endblock %}
+{% block content %}
+<div class="row">
+{% if news %}
+    {% for new in news %}
+        <div class="col-lg-12">
+            <div class="card mb-3" style="width: 900px; height: 300px;">
+                <div class="row g-0">
+                    <div class="col-md-5">
+                        {% if new.title_image.name == "default.jpg" %}
+                            <img src="/media/news/{{new.title_image.name}}" class="img-fluid" alt="..." style="height: 300px;">
+                        {% else %}
+                            <img src="/media/{{new.title_image.name}}" class="img-fluid" alt="..." style="height: 300px;">
+                        {% endif %}
+                    </div>
+                    <div class="col-md-7">
+                        <div class="card-body">
+                            <a href="{% url "news:all_detail_news" new.id %}"><h5 class="card-title">{{new.name}}</h5></a>
+                            <p class="card-text">{{new.discription|truncatewords:20}}</p>
+                            <p class="card-text"><small class="text-muted">Status: {{new.status.name}}</small></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% elif filters %}
+    {% for filter in filters %}
+        <div class="col-lg-12">
+            <div class="card mb-3" style="width: 900px; height: 300px;">
+                <div class="row g-0">
+                    <div class="col-md-5">
+                        {% if filter.title_image.name == "default.jpg" %}
+                            <img src="/media/news/{{filter.title_image.name}}" class="img-fluid" alt="..." style="height: 300px;">
+                        {% else %}
+                            <img src="/media/{{filter.title_image.name}}" class="img-fluid" alt="..." style="height: 300px;">
+                        {% endif %}
+                    </div>
+                    <div class="col-md-7">
+                        <div class="card-body">
+                            <a href="{% url "news:all_detail_news" filter.id %}"><h5 class="card-title">{{filter.name}}</h5></a>
+                            <p class="card-text">{{filter.discription|truncatewords:20}}</p>
+                            <p class="card-text"><small class="text-muted">Status: {{filter.status.name}}</small></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% endif %}
+</div>
+{% endblock %}
