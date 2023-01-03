@@ -4,8 +4,13 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
+django = "*"
+psycopg2 = "*"
+pillow = "*"
+channels = "*"
+daphne = "*"
 
 [dev-packages]
 
 [requires]
-python_version = "3.10"
+python_version = "3.9"

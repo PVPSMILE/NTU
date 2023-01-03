@@ -1,19 +1,21 @@
 from register.models import RegistrationModel
 from django.forms import ModelForm
-from django import forms 
-from django.forms import ModelForm, TextInput,PasswordInput,CheckboxInput,Textarea,FileInput,NumberInput
+from django import forms
+from django.forms import ModelForm, TextInput, PasswordInput, CheckboxInput, Textarea, FileInput, NumberInput
 from django.contrib.sessions.backends.db import SessionStore
 class CodeForm(forms.Form):
-    def __init__(self,request,*args, **kwargs):
+    def __init__(self, request, *args, **kwargs):
         super(CodeForm, self).__init__(*args, **kwargs)
         self.code = request.session["Code"]
-    code = forms.CharField(max_length=6,widget=TextInput(attrs={
+
+    code = forms.CharField(max_length=6, widget=TextInput(attrs={
         "placeholder": "Enter code",
-        "type":"text",
+        "type": "text",
         "class": "form-control",
         "id": "code",
         "style": "width: 166px; height: 61px;"
     }))
+
     def clean(self):
         super(CodeForm, self).clean()
         code = self.cleaned_data["code"]
@@ -21,9 +23,12 @@ class CodeForm(forms.Form):
             self._errors['code'] = self.error_class(['Invalid code.Try again.'])
         elif (self.code).upper() != (self.cleaned_data["code"]).upper():
             self._errors['code'] = self.error_class(['Invalid code.Try again.'])
+
+
 class RegistrationForm(ModelForm):
     def __int__(self):
         super(RegistrationForm, self).__init__()
+
     repeat_password = forms.CharField(max_length=110, widget=PasswordInput(attrs={
         "placeholder": "Repeat password",
         "type": "password",
@@ -36,17 +41,18 @@ class RegistrationForm(ModelForm):
         "placeholder": "Password",
         "type": "password",
     }))
+
     class Meta:
         model = RegistrationModel
-        exclude = ('role','is_active')
-        fileds = ['last_name','first_name', 'email', 'password']
+        exclude = ('role', 'type', 'photo','status')
+        fields = ['last_name', 'first_name', 'email', 'password']
         widgets = {
             "last_name": TextInput(attrs={
                 "class": "form-control",
                 "placeholder": "Last name",
                 "type": "text",
                 "id": "Last_name",
-                "name": "Last_name"
+                "name": "Last_name",
             }),
             "first_name": TextInput(attrs={
                 "class": "form-control",
@@ -59,10 +65,11 @@ class RegistrationForm(ModelForm):
                 "placeholder": "Email",
                 "type": "text",
             }),
-            
+
         }
+
     def clean(self):
-        password= self.cleaned_data["password"]
+        password = self.cleaned_data["password"]
         repeat_password = self.cleaned_data["repeat_password"]
         try:
             exist_email = RegistrationModel.objects.filter(email=self.cleaned_data["email"]).exists()
@@ -82,10 +89,11 @@ class AuthorizationForm(ModelForm):
         "placeholder": "Password",
         "type": "password",
     }))
+
     class Meta:
         model = RegistrationModel
-        exclude = ('role', 'is_active','last_name', 'first_name')
-        fileds = ['email', 'password']
+        exclude = ('role', 'is_active', 'last_name', 'first_name', 'photo')
+        fields = ['email', 'password']
         widgets = {
             "email": TextInput(attrs={
                 "class": "form-control",
@@ -94,10 +102,12 @@ class AuthorizationForm(ModelForm):
             }),
 
         }
+
     def clean(self):
-        super(AuthorizationForm,self).clean()
+        super(AuthorizationForm, self).clean()
         try:
-            exist_account = RegistrationModel.objects.filter(email=self.cleaned_data["email"],password=self.cleaned_data["password"]).exists()
+            exist_account = RegistrationModel.objects.filter(email=self.cleaned_data["email"],
+                                                             password=self.cleaned_data["password"]).exists()
         except KeyError:
             self._errors["email"] = self.error_class(["Invalid email. Have you made account?"])
         else:
@@ -106,15 +116,16 @@ class AuthorizationForm(ModelForm):
 
 
 class SetUpDataForm(ModelForm):
-    password = forms.CharField(max_length=110,widget=PasswordInput(render_value=True, attrs={
+    password = forms.CharField(max_length=110, widget=PasswordInput(render_value=True, attrs={
         "class": "form-control",
         "placeholder": "Password",
         "type": "password",
     }))
+
     class Meta:
         model = RegistrationModel
         exclude = ('role', 'is_active')
-        fileds = ['last_name', 'first_name', 'email', 'password']
+        fields = ['last_name', 'first_name', 'email', 'password', 'photo']
         widgets = {
             "last_name": TextInput(attrs={
                 "class": "form-control",

@@ -11,6 +11,5 @@ urlpatterns = [
     path('code/', views.send_code, name='code'),
     path('sign_out/', views.sing_out, name='sign_out'),
     path('settings/', views.setup_data, name='update'),
-
-    
+    path('role/',views.role, name="role")
 ]

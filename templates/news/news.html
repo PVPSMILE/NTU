@@ -2,181 +2,185 @@
 {% block title %}NEWS{% endblock %}
 {% block page %}NEWS{% endblock %}
 {% block content %}
-    {% if news %}
-        {% for new in news %}
-            
-           
-
+        <div class="container-fluid">
             <div class="row">
-
-                <div class="col-lg-12">
-
-                    <!-- Default Card Example -->
-                    <div class="card mb-4">
-                        <img src="https://lh3.googleusercontent.com/p/AF1QipPhb2dsj2iHjXxlxq5H4FiU7PpXTFVirfF1ParO=s1360-w1360-h1020" class="card-img-top" alt="...">
-                        <div class="card-body">
-                          <h5 class="card-title">{{new.name}}</h5>
-                          <p class="card-text">{{new.discription}}</p>
-                          <p class="card-text">{{new.author}}</p>
-                          <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                        </div>
-                      </div>
-
-
-                    <!-- Basic Card Example -->
-                    
-
-                </div>
-
-                <div class="col-lg-6">
-                    <div class="card mb-4">
-                        <img src="data:image/jpeg;base64,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" class="card-img-top" alt="...">
-                        <div class="card-body">
-                          <h5 class="card-title">Card title</h5>
-                          <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                          <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                        </div>
-                      </div>
-                    <!-- Dropdown Card Example -->
-                    <div class="card shadow mb-4">
-                        <!-- Card Header - Dropdown -->
-                        <div
-                            class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                            <h6 class="m-0 font-weight-bold text-primary">Dropdown Card Example</h6>
-                            <div class="dropdown no-arrow">
-                                <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                    aria-labelledby="dropdownMenuLink">
-                                    <div class="dropdown-header">Dropdown Header:</div>
-                                    <a class="dropdown-item" href="#">Action</a>
-                                    <a class="dropdown-item" href="#">Another action</a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#">Something else here</a>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Card Body -->
-                        <div class="card-body">
-                            Dropdown menus can be placed in the card header in order to extend the functionality
-                            of a basic card. In this dropdown card example, the Font Awesome vertical ellipsis
-                            icon in the card header can be clicked on in order to toggle a dropdown menu.
-                        </div>
-                    </div>
-
-                    <!-- Collapsable Card Example -->
-                    <div class="card shadow mb-4">
-                        <!-- Card Header - Accordion -->
-                        <a href="#collapseCardExample" class="d-block card-header py-3" data-toggle="collapse"
-                            role="button" aria-expanded="true" aria-controls="collapseCardExample">
-                            <h6 class="m-0 font-weight-bold text-primary">Collapsable Card Example</h6>
-                        </a>
-                        <!-- Card Content - Collapse -->
-                        <div class="collapse show" id="collapseCardExample">
+            {% for new in news %}
+                {% if new.title_image.name == "default.jpg" %}
+                    <div class="col-lg-4">
+                        <div class="card shadow mb-5 bg-body rounded" style="height:600px;">
+                            <div class="scale"><a href="{% url "news:detail" new.pk %}"> <img src="/media/news/{{new.title_image.name}}" class="card-img-top" alt="..."  width="400" height="300"></a></div>
                             <div class="card-body">
-                                This is a collapsable card example using Bootstrap's built in collapse
-                                functionality. <strong>Click on the card header</strong> to see the card body
-                                collapse and expand!
+                                <a href="{% url "news:detail" new.pk %}"><h5 class="card-title">{{new.name}}</h5></a>
+                                <p class="card-text">{{new.discription|truncatewords:20}}</p>
+                                <p class="card-text">{{new.author}}</p>
+                                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
                             </div>
                         </div>
                     </div>
-
-                </div>
-
+                {% else %}
+                    <div class="col-lg-4">
+                        <div class="card shadow mb-5 bg-body rounded" style="height:600px;">
+                            <div class="scale"><a href="{% url "news:detail" new.pk %}"><img src="/media/{{new.title_image.name}}" class="card-img-top" alt="..." width="400" height="300"></a></div>
+                            <div class="card-body">
+                                <a href="{% url "news:detail" new.pk %}"><h5 class="card-title">{{new.name}}</h5></a>
+                                <p class="card-text">{{new.discription|truncatewords:20}}</p>
+                                <p class="card-text">{{new.author.last_name}} {{new.author.first_name}}</p>
+                                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
             </div>
-        {% endfor %}
-    {% elif filters %}
-        {% for filter in filters %}
-            <div class="row">  
-                <!-- Earnings (Monthly) Card Example -->
-                <div class="col-xl-12 col-md-12 mb-4">
-                    <p>{{filter.name}}</p>
-                    <p>{{filter.discription}}</p>
-                    <p>{{filter.author}}</p>
-                    <br>
+        </div>
+    {% if filters %}
+        <div class="container-fluid">
+            <div class="row">
+            {% for filter in filters %}
+                <div class="col-lg-4">
+                    <div class="card mb-2" style="height:600px;">
+                        {% if filter.title_image.name == "default.jpg" %}
+                            <a href="{% url "news:detail" filter.pk %}"><img src="/media/news/{{filter.title_image.name}}" class="card-img-top" alt="..." width="400" height="300"></a>
+                        {% else %}
+                            <a href="{% url "news:detail" filter.pk %}"><img src="/media/{{filter.title_image.name}}" class="card-img-top" alt="..." width="400" height="300"></a>
+                        {% endif %}
+                        <div class="card-body">
+                        <a href="{% url "news:detail" filter.pk %}"><h5 class="card-title">{{filter.name}}</h5></a>
+                        <p class="card-text">{{filter.discription|truncatewords:20}}</p>
+                        <p class="card-text">{{filter.author}}</p>
+                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                        </div>
+                    </div>
                 </div>
-                <!-- Pending Requests Card Example -->
+            {% endfor %}
             </div>
-        {% endfor %}
+        </div>
     {% elif search_news %}
-        {% for search_new in search_news %}
-            <div class="row">  
-                <!-- Earnings (Monthly) Card Example -->
-                <div class="col-xl-12 col-md-12 mb-4">
-                    <p>{{search_new.name}}</p>
-                    <p>{{search_new.discription}}</p>
-                    <p>{{search_new.author}}</p>
-                    <br>
+        <div class="container-fluid">
+            <div class="row">
+            {% for search_new in search_news %}
+                <div class="col-lg-4">
+                    <div class="card mb-2" style="height:600px;">
+                        {% if search_new.title_image.name == "default.jpg" %}
+                            <a href="{% url "news:detail" search_new.pk %}"><img src="/media/news/{{search_new.title_image.name}}" class="card-img-top" alt="..." width="400" height="300"></a>
+                        {% else %}
+                            <a href="{% url "news:detail" search_new.pk %}"><img src="/media/{{search_new.title_image.name}}" class="card-img-top" alt="..." width="400" height="300"></a>
+                        {% endif %}
+                        <div class="card-body">
+                        <a href="{% url "news:detail" search_new.pk %}"><h5 class="card-title">{{search_new.name}}</h5></a>
+                        <p class="card-text">{{search_new.discription|truncatewords:20}}</p>
+                        <p class="card-text">{{search_new.author}}</p>
+                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                        </div>
+                    </div>
                 </div>
-                <!-- Pending Requests Card Example -->
+            {% endfor %}
             </div>
-        {% endfor %}
+        </div>
     {% elif search_similarity_name_news %}
-        {% for search_similarity_name_new in search_similarity_name_news %}
-            <div class="row">  
-                <!-- Earnings (Monthly) Card Example -->
-                <div class="col-xl-12 col-md-12 mb-4">
-                    <p>{{search_similarity_name_new.name}}</p>
-                    <p>{{search_similarity_name_new.discription}}</p>
-                    <p>{{search_similarity_name_new.author}}</p>
-                    <br>
+        <div class="container-fluid">
+            <div class="row">
+            {% for search_similarity_name_new in search_similarity_name_news %}
+                <div class="col-lg-4">
+                    <div class="card mb-2" style="height:600px;">
+                        {% if search_similarity_name_new.title_image.name == "default.jpg" %}
+                            <a href="{% url "news:detail" search_similarity_name_new.pk %}"><img src="/media/news/{{search_similarity_name_new.title_image.name}}" class="card-img-top" alt="..." width="400" height="300"></a>
+                        {% else %}
+                            <a href="{% url "news:detail" search_similarity_name_new.pk %}"><img src="/media/{{search_similarity_name_new.title_image.name}}" class="card-img-top" alt="..." width="400" height="300"></a>
+                        {% endif %}
+                        <div class="card-body">
+                        <a href="{% url "news:detail" search_similarity_name_new.pk %}"><h5 class="card-title">{{search_similarity_name_new.name}}</h5></a>
+                        <p class="card-text">{{search_similarity_name_new.discription|truncatewords:20}}</p>
+                        <p class="card-text">{{search_similarity_name_new.author}}</p>
+                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                        </div>
+                    </div>
                 </div>
-                <!-- Pending Requests Card Example -->
+            {% endfor %}
             </div>
-        {% endfor %}
+        </div>
     {% elif search_similarity_discription_news %}
-        {% for search_similarity_discription_new in search_similarity_discription_news %}
-            <div class="row">  
-                <!-- Earnings (Monthly) Card Example -->
-                <div class="col-xl-12 col-md-12 mb-4">
-                    <p>{{search_similarity_discription_new.name}}</p>
-                    <p>{{search_similarity_discription_new.discription}}</p>
-                    <p>{{search_similarity_discription_new.author}}</p>
-                    <br>
+        <div class="container-fluid">
+            <div class="row">
+            {% for search_similarity_discription_new in search_similarity_discription_news %}
+                <div class="col-lg-4">
+                    <div class="card mb-2" style="height:600px;">
+                        {% if search_similarity_discription_new.title_image.name == "default.jpg" %}
+                            <a href="{% url "news:detail" search_similarity_discription_new.pk %}"><img src="/media/news/{{search_similarity_discription_new.title_image.name}}" class="card-img-top" alt="..." width="400" height="300"></a>
+                        {% else %}
+                            <a href="{% url "news:detail" search_similarity_discription_new.pk %}"><img src="/media/{{search_similarity_discription_new.title_image.name}}" class="card-img-top" alt="..." width="400" height="300"></a>
+                        {% endif %}
+                        <div class="card-body">
+                        <a href="{% url "news:detail" search_similarity_discription_new.pk %}"><h5 class="card-title">{{search_similarity_discription_new.name}}</h5></a>
+                        <p class="card-text">{{search_similarity_discription_new.discription|truncatewords:20}}</p>
+                        <p class="card-text">{{search_similarity_discription_new.author}}</p>
+                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                        </div>
+                    </div>
                 </div>
-                <!-- Pending Requests Card Example -->
+            {% endfor %}
             </div>
-        {% endfor %}
+        </div>
     {% elif search_similarity_author_news %}
-        {% for search_similarity_author_new in search_similarity_author_news %}
-            <div class="row">  
-                <!-- Earnings (Monthly) Card Example -->
-                <div class="col-xl-12 col-md-12 mb-4">
-                    <p>{{search_similarity_author_new.name}}</p>
-                    <p>{{search_similarity_author_new.discription}}</p>
-                    <p>{{search_similarity_author_new.author}}</p>
-                    <br>
+        <div class="container-fluid">
+            <div class="row">
+            {% for search_similarity_author_new in search_similarity_author_news %}
+                <div class="col-lg-4">
+                    <div class="card mb-2" style="height:600px;">
+                        {% if search_similarity_author_new.title_image.name == "default.jpg" %}
+                            <a href="{% url "news:detail" search_similarity_author_new.pk %}"><img src="/media/news/{{search_similarity_author_new.title_image.name}}" class="card-img-top" alt="..." width="400" height="300"></a>
+                        {% else %}
+                            <a href="{% url "news:detail" search_similarity_author_new.pk %}"><img src="/media/{{search_similarity_author_new.title_image.name}}" class="card-img-top" alt="..." width="400" height="300"></a>
+                        {% endif %}
+                        <div class="card-body">
+                        <a href="{% url "news:detail" search_similarity_author_new.pk %}"><h5 class="card-title">{{search_similarity_author_new.name}}</h5></a>
+                        <h5 class="card-title">{{search_similarity_author_new.name}}</h5>
+                        <p class="card-text">{{search_similarity_author_new.discription|truncatewords:20}}</p>
+                        <p class="card-text">{{search_similarity_author_new.author}}</p>
+                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                        </div>
+                    </div>
                 </div>
-                <!-- Pending Requests Card Example -->
+            {% endfor %}
             </div>
-        {% endfor %}
+        </div>
     {% endif %}  
 {% endblock %}
 {% block filter %}
-        <form method="post">
-            {% csrf_token %}
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="filter" value="War" id="flexCheckDefault">
-                <label class="form-check-label" for="flexCheckDefault">
-                War
-                </label>
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+            aria-expanded="true" aria-controls="collapseTwo">
+            <i class="fas fa-fw fa-cog"></i>
+            <span>Filters</span>
+        </a>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Custom Filters:</h6>
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="filter" value="War" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">
+                        War
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="filter" value="Money" id="flexCheckChecked">
+                        <label class="form-check-label" for="flexCheckChecked">
+                        Money
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="filter" value="Weather" id="flexCheckChecked">
+                        <label class="form-check-label" for="flexCheckChecked">
+                        Weather
+                        </label>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-sm">Find</button>
+                </form>
             </div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="filter" value="Money" id="flexCheckChecked">
-                <label class="form-check-label" for="flexCheckChecked">
-                Money
-                </label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="filter" value="Weather" id="flexCheckChecked">
-                <label class="form-check-label" for="flexCheckChecked">
-                Weather
-                </label>
-            </div>
-            <button type="submit" class="btn btn-primary btn-sm">Find</button>
-        </form>
+        </div>
+    </li>
 {% endblock %}
 {% block search %}
 <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" method="post">
