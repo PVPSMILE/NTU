@@ -1,0 +1,19 @@
+.scale{
+    display: inline-block;
+    overflow: hidden;
+}
+.scale img{
+    transition: 1s;
+    display: block;
+}
+.scale img:hover{
+    transform: scale(1.2);
+}
+#accept{
+    position: relative;
+    left: 90%;
+}
+#decline{
+    position: relative;
+    right: 12%;
+}

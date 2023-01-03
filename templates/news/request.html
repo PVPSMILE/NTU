@@ -1,0 +1,53 @@
+{% extends "base.html"%}
+{% block content %}
+<div class="row">
+    {% for new in news %}
+        <div class="col-lg-12">
+            <div class="card mb-3" style="width: 787px; height: 248px;">
+                <div class="row g-0">
+                    <div class="col-md-3">
+                        {% if new.title_image.name == "default.jpg" %}
+                            <img src="/media/news/{{new.title_image.name}}" class="img-fluid rounded-start" alt="..." style="height: 248px;">
+                        {% else %}
+                            <img src="/media/{{new.title_image.name}}" class="img-fluid rounded-start" alt="..." style="height: 248px;">
+                        {% endif %}
+                    </div>
+                    <div class="col-md-9">
+                        <div class="card-body">
+                            <a href="{% url "news:request_detail" new.pk %}"><h5 class="card-title">{{new.name}}</h5></a>
+                            <p class="card-text">{{new.discription|truncatewords:20}}</p>
+                            <p class="card-text"><small class="text-muted">Status: {{new.status.name}}</small></p>
+                            <p class="card-text"><small class="text-muted">Type: {{new.type.name}}</small></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+<div class="row">
+    {% for account in accounts %}
+        <div class="col-lg-12">
+            <div class="card mb-3" style="width: 787px; height: 248px;">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        {% if account.photo.name == "depositphotos_199564354-stock-illustration-creative-vector-illustration-of-default.jpg" %}
+                            <img src="/media/profile/{{account.photo.name}}" class="img-fluid rounded-start" alt="..." style="height: 248px;">
+                        {% else %}
+                            <img src="/media/{{account.photo.name}}" class="img-fluid rounded-start" alt="..." style="height: 248px;">
+                        {% endif %}
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <a href="{% url "news:request_detail_account" account.pk %}"><h5 class="card-title">{{account.last_name}} {{account.first_name}}</h5></a>
+                            <p class="card-text"><small class="text-muted">Status: {{account.status.name}}</small></p>
+                            <p class="card-text"><small class="text-muted">Type: {{account.type.name}}</small></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

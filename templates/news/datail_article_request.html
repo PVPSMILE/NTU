@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block content %}
+<h3>Title:</h3>
+<p>{{ news.name }}</p>
+<h3>Image:</h3>
+{% if news.title_image.name == "default.jpg" %}
+    <img src="/media/news/{{news.title_image.name}}" class="img-fluid py-3" alt="...">
+{% else %}
+    <img src="/media/{{news.title_image.name}}" class="img-fluid py-3" alt="...">
+{% endif %}
+<h3>Description:</h3>
+<p>{{ news.discription }}</p>
+<form method="post" class="my-3" id="form">
+    {% csrf_token %}
+    {% for form in forms %}
+        {% if form.errors %}
+            {% for error in form.errors%}
+                    <div class="mb-3 w-25">
+                            <label class="form-label">{{form.label}}</label>
+                            {{ form }}
+                            <p style="margin-top:10px; color:red;">{{ error }}</p>
+                    </div>
+            {% endfor %}
+        {% else %}
+                <div class="mb-3 w-25">
+                    <label class="form-label">{{form.label}}</label>
+                    {{ form }}
+                </div>
+        {% endif %}
+    {% endfor %}
+</form>
+<form method="post" id="form2">
+    {% csrf_token %}
+    <input type="hidden" name="Accept" value="true"></input>
+</form>
+<p class="text"><small class="text-muted">Status: {{news.status.name}}</small></p>
+<p class="text"><small class="text-muted">Type: {{news.type.name}}</small></p>
+<button type="submit" form="form2" class="btn btn-success mx-3" id="accept">Accept article</button>
+<button type="submit" form="form" class="btn btn-danger mx-4" id="decline">Decline article</button>
+{% endblock %}

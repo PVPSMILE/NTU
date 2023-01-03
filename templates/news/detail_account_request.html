@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+<h4>First name: {{ accounts.first_name }}</h4>
+<h4>Surname: {{ accounts.last_name }}</h4>
+<h4>Email: {{ accounts.email }}</h4>
+<form method="post" class="my-3" id="form">
+    {% csrf_token %}
+    <div class="mb-3 w-25">
+        <label class="form-label">{{form.label}}</label>
+        {{ form }}
+    </div>
+</form>
+<form method="post" id="form2">
+    {% csrf_token %}
+    <input type="hidden" name="Accept" value="true"></input>
+</form>
+<p class="text"><small class="text-muted">Status: {{accounts.status.name}}</small></p>
+<p class="text"><small class="text-muted">Type: {{accounts.type.name}}</small></p>
+<button type="submit" form="form2" class="btn btn-success mx-3" id="accept">Raise level account</button>
+<button type="submit" form="form" class="btn btn-danger mx-4" id="decline">Don't change level account</button>
+{% endblock %}

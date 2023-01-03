@@ -1,0 +1,30 @@
+{% extends "base.html"%}
+{% block content %}
+<div class="row">
+    <div class="col-lg-12">
+        <a class="btn btn-primary" href="{% url "news:create_article" %}" role="button">+</a>
+    </div>
+    {% for article in articles %}
+        <div class="col-lg-12">
+            <div class="card mb-3" style="width: 787px; height: 248px;">
+                <div class="row g-0">
+                    <div class="col-md-5">
+                        {% if article.title_image.name == "default.jpg" %}
+                            <img src="/media/news/{{article.title_image.name}}" class="img-fluid rounded-start" alt="..." style="height: 248px;">
+                        {% else %}
+                            <img src="/media/{{article.title_image.name}}" class="img-fluid rounded-start" alt="..." style="height: 248px;">
+                        {% endif %}
+                    </div>
+                    <div class="col-md-7">
+                        <div class="card-body">
+                            <a href="{% url "news:detail_article" article.id %}"><h5 class="card-title">{{article.name}}</h5></a>
+                            <p class="card-text">{{article.discription|truncatewords:20}}</p>
+                            <p class="card-text"><small class="text-muted">Status: {{article.status.name}}</small></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

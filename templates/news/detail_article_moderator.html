@@ -1,0 +1,29 @@
+{% extends "base.html"%}
+{% block content %}
+<form method="post" enctype="multipart/form-data" id="form">
+    {% csrf_token %}
+    {% for form in forms %}
+        <div class="mb-3 w-25">
+            <label class="form-label">{{form.label}}:</label>
+            {{ form }}
+        </div>
+    {% endfor %}
+</form>
+<form method="post" id="form2">
+    {% csrf_token %}
+    <input type="hidden" name="delete" value="true">
+</form>
+<h3>Image:</h3>
+{% if article.title_image.name == "default.jpg" %}
+    <img src="/media/news/{{article.title_image.name}}" class="img-fluid py-3" alt="...">
+{% else %}
+    <img src="/media/{{article.title_image.name}}" class="img-fluid py-3" alt="...">
+{% endif %}
+{% if len_review.len_review != 0 %}
+    <h3>Re:</h3>
+    <p class="text mx-3">{{article.review}}</p>
+{% endif %}
+<p class="text"><small class="text">Status: {{article.status.name}}</small></p>
+<button type="submit" class="btn btn-success" form="form">Update</button>
+<button type="submit" class="btn btn-danger mx-5" form="form2">Delete</button>
+{% endblock %}

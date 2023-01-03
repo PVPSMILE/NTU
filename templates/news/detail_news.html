@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>{{news.name}}</h1>
+<h3 class="text-md-start py-2">{{news.date_of_update}} {{news.time_of_update}}</h2>
+{% if news.title_image.name == "default.jpg" %}
+    <img src="/media/news/{{news.title_image.name}}" class="img-fluid py-3" alt="...">
+{% else %}
+    <img src="/media/{{news.title_image.name}}" class="img-fluid py-3" alt="...">
+{% endif %}
+<p class="text-md-start py-3">{{news.discription}}</p>
+{% endblock %}
