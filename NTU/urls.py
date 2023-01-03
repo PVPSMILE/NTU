@@ -10,6 +10,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include("register.urls"), name="reg"),
     path('', include("nav.urls"), name="nav"),
+    path('', include("news.urls"), name="new"),
     path('', index, name='index')
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-
+]
+urlpatterns +=static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
