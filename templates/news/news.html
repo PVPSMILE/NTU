@@ -7,25 +7,23 @@
             {% for new in news %}
                 {% if new.title_image.name == "default.jpg" %}
                     <div class="col-lg-4">
-                        <div class="card shadow mb-5 bg-body rounded" style="height:600px;">
+                        <div class="card shadow-small mb-5 bg-body rounded" style="height:600px;">
                             <div class="scale"><a href="{% url "news:detail" new.pk %}"> <img src="/media/news/{{new.title_image.name}}" class="card-img-top" alt="..."  width="400" height="300"></a></div>
                             <div class="card-body">
-                                <a href="{% url "news:detail" new.pk %}"><h5 class="card-title">{{new.name}}</h5></a>
+                                <a class="title" href="{% url "news:detail" new.pk %}"><h5 class="card-title">{{new.name}}</h5></a>
                                 <p class="card-text">{{new.discription|truncatewords:20}}</p>
-                                <p class="card-text">{{new.author}}</p>
-                                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                                <p class="card-text"><small class="text-muted">{{new.time_of_update}}</small></p>
                             </div>
                         </div>
                     </div>
                 {% else %}
                     <div class="col-lg-4">
-                        <div class="card shadow mb-5 bg-body rounded" style="height:600px;">
+                        <div class="card shadow-small mb-5 bg-body rounded" style="height:600px;">
                             <div class="scale"><a href="{% url "news:detail" new.pk %}"><img src="/media/{{new.title_image.name}}" class="card-img-top" alt="..." width="400" height="300"></a></div>
                             <div class="card-body">
-                                <a href="{% url "news:detail" new.pk %}"><h5 class="card-title">{{new.name}}</h5></a>
+                                <a class="title" href="{% url "news:detail" new.pk %}"><h5 class="card-title">{{new.name}}</h5></a>
                                 <p class="card-text">{{new.discription|truncatewords:20}}</p>
-                                <p class="card-text">{{new.author.last_name}} {{new.author.first_name}}</p>
-                                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                                <p class="card-text"><small class="text-muted">{{new.time_of_update}}</small></p>
                             </div>
                         </div>
                     </div>

@@ -1,0 +1,222 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+      <div class="row">
+  
+        <div class="col-md-6 col-lg-5 col-xl-4 mb-4 mb-md-0">
+  
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                  <button class="btn" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true"><img src="{% static 'image/chat.png' %}" alt="" width="30"></button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button class="btn" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false"><img src="{% static 'image/friends.png' %}" alt="" width="30"></button>
+                </li>
+                <!-- <li class="nav-item" role="presentation">
+                  <button class="btn" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Contact</button>
+                </li> -->
+              </ul>
+              <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <div class="card">
+                        <div class="card-body">
+                          <ul class="list-unstyled mb-0" style="max-height: 600px; overflow-y:scroll;overflow-x:hidden; height: 600px;" id="chat">
+                            <div class="input-group rounded mb-3">
+                                <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" id="search" autocomplete="off"/>
+                                <span class="input-group-text border-0" id="search-addon">
+                                  <i class="fas fa-search"></i>
+                                </span>
+                            </div>
+                            {% for rooms in chats %}
+                                {% for room in rooms %} 
+                                    <li class="p-2 border-bottom q">
+                                    <a href="#!" class="d-flex justify-content-between chat">
+                                        <div class="d-flex flex-row chats">
+                                            <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-8.webp" alt="avatar" class="rounded-circle d-flex align-self-center me-3 shadow-1-strong" width="60">
+                                            <div class="email pt-1">
+                                                <a href="{% url 'news:chat' room.room_name %}"><p class="fw-bold mb-0">{{room.participant.last_name}} {{room.participant.first_name}}</p></a>
+                                                <p class="room" style="display: none;">{{room.room_name}}</p>
+                                                {% if last_messages %}
+                                                    {% for message in last_messages %}
+                                                        {% if message.room_name == room.room_name %}
+                                                            <p class="small text-muted last_message">{{message.message}}</p>
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                {% else %}
+                                                    <p class="small text-muted last_message"></p>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                        <!-- <div class="pt-1">
+                                        <p class="small text-muted mb-1">Just now</p>
+                                        <span class="badge bg-danger float-end">1</span>
+                                        </div> -->
+                                    </a>
+                                    </li>
+                                {% endfor %}
+                            {% endfor %}
+                          </ul>
+              
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                    <div class="card">
+                        <div class="card-body">
+                          <ul class="list-unstyled mb-0" style="max-height: 600px; overflow-y:scroll;overflow-x:hidden; height: 600px;" id="chat3">
+                            <div class="input-group rounded mb-3">
+                                <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" id="search_friend" aria-describedby="search-addon" autocomplete="off"/>
+                                <span class="input-group-text border-0" id="search-addon">
+                                  <i class="fas fa-search"></i>
+                                </span>
+                            </div>
+                            {% if friends %}
+                                {% for friend in friends %} 
+                                        <li class="p-2 border-bottom h">
+                                        <a href="#!" class="d-flex justify-content-between chat">
+                                            <div class="d-flex flex-row chats">
+                                                <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-8.webp" alt="avatar" class="rounded-circle d-flex align-self-center me-3 shadow-1-strong" width="60">
+                                                <div class="email pt-1">
+                                                    <p class="fw-bold mb-0">{{friend.friend.last_name}} {{friend.friend.first_name}}</p>
+                                                </div>
+                                            </div>
+                                            <!-- <div class="pt-1">
+                                            <p class="small text-muted mb-1">Just now</p>
+                                            <span class="badge bg-danger float-end">1</span>
+                                            </div> -->
+                                        </a>
+                                        </li>
+                                {% endfor %}
+                            {% else %}
+                                <p>No any friends((</p>
+                            {% endif %}
+                          </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div> -->
+              </div>
+  
+        </div>
+  
+        <div class="col-md-6 col-lg-7 col-xl-8">
+            {% if data.status.name == "Active" %}
+                <ul class="list-unstyled" id="topbar">
+                    <div class="d-flex flex-row" style="background-color: white;">
+                        <div class="d-flex flex-column">
+                            <img class="img-profile rounded-circle mx-4 mb-2 mt-2" src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-5.webp" height="45" width="45">
+                            <p class="text-muted small mx-4">13 mins ago</p> 
+                        </div>
+                        {% for data in datas %}
+                            <div class="my-3">{{data.participant.last_name}} {{data.participant.first_name}}</div>
+                        {% endfor %}
+                    </div>
+                </ul>
+                <ul class="list-unstyled" style="max-height: 450px; overflow-y:scroll;overflow-x:hidden; height: 450px;" id="chat2">
+                    {% for message in messages %}
+                        {% if message.owner.email == request.session.Email %}
+                            <li class="d-flex justify-content-between mb-4">
+                                <div class="card w-100">
+                                    <div class="card-header d-flex justify-content-between p-3">
+                                        <p class="fw-bold mb-0">You</p>
+                                        <p class="text-muted small mb-0"><i class="far fa-clock"></i>{{message.time_of_update}}</p>
+                                    </div>
+                                    <div class="card-body">
+                                        <p class="mb-0">
+                                            {{message.message}}
+                                        </p>
+                                    </div>
+                                </div>
+                                <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-5.webp" alt="avatar"
+                                        class="rounded-circle d-flex align-self-start ms-3 shadow-1-strong" width="60">
+                            </li>  
+                        {% else %}
+                            <li class="d-flex justify-content-between mb-4">
+                                <div class="card w-100">
+                                    <div class="card-header d-flex justify-content-between p-3">
+                                        <p class="fw-bold mb-0">{{message.owner.first_name}}</p>
+                                        <p class="text-muted small mb-0"><i class="far fa-clock"></i>{{message.time_of_update}}</p>
+                                    </div>
+                                    <div class="card-body">
+                                        <p class="mb-0">
+                                            {{message.message}}
+                                        </p>
+                                    </div>
+                                </div>
+                                <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-5.webp" alt="avatar"
+                                        class="rounded-circle d-flex align-self-start ms-3 shadow-1-strong" width="60">
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <ul class="list-unstyled" id="topbar">
+                    <div class="d-flex flex-row" style="background-color: white;">
+                        <div class="d-flex flex-column">
+                            <img class="img-profile rounded-circle mx-4 mb-2 mt-2" src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-5.webp" height="45" width="45">
+                            <p class="text-muted small mx-4">13 mins ago</p> 
+                        </div>
+                        {% for data in datas %}
+                            <div class="my-3">{{data.participant.last_name}} {{data.participant.first_name}}</div>
+                        {% endfor %}
+                    </div>
+                </ul>
+                <ul class="list-unstyled" style="max-height: 450px; overflow-y:scroll;overflow-x:hidden; height: 450px;" id="chat2">
+                    <div class="d-flex justify-content-center" id="list">
+                        <a class="btn btn-primary" type="button" id="add">Add Chat</a>
+                        <a class="btn btn-danger" type="button" id="block">Spam</a>
+                    </div>
+                    {% for message in messages %}
+                        {% if message.owner.email == request.session.Email %}
+                            <li class="d-flex justify-content-between mb-4">
+                                <div class="card w-100">
+                                    <div class="card-header d-flex justify-content-between p-3">
+                                        <p class="fw-bold mb-0">You</p>
+                                        <p class="text-muted small mb-0"><i class="far fa-clock"></i>{{message.time_of_update}}</p>
+                                    </div>
+                                    <div class="card-body">
+                                        <p class="mb-0">
+                                            {{message.message}}
+                                        </p>
+                                    </div>
+                                </div>
+                                <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-5.webp" alt="avatar"
+                                        class="rounded-circle d-flex align-self-start ms-3 shadow-1-strong" width="60">
+                            </li>  
+                        {% else %}
+                            <li class="d-flex justify-content-between mb-4">
+                                <div class="card w-100">
+                                    <div class="card-header d-flex justify-content-between p-3">
+                                        <p class="fw-bold mb-0">{{message.owner.first_name}}</p>
+                                        <p class="text-muted small mb-0"><i class="far fa-clock"></i>{{message.time_of_update}}</p>
+                                    </div>
+                                    <div class="card-body">
+                                        <p class="mb-0">
+                                            {{message.message}}
+                                        </p>
+                                    </div>
+                                </div>
+                                <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-5.webp" alt="avatar" class="rounded-circle d-flex align-self-start ms-3 shadow-1-strong" width="60">
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            {% endif %}
+                <ul class="list-unstyled">
+                    <li class="bg-white mb-3">
+                        <div class="form-outline">
+                        <textarea class="form-control" id="textAreaExample2" rows="4"></textarea>
+                        </div>
+                    </li>
+                    <button type="button" class="btn btn-info btn-rounded float-end" id="send">Send</button>
+                </ul>
+        </div>
+      </div>
+    {{ room_name|json_script:"room-name" }}
+    {{ request.session.Name|json_script:"Name" }}
+    {{ request.session.Email|json_script:"Email" }}
+    {{ data.participant.email|json_script:"friend" }}
+    {{ request.session.Surname|json_script:"Surname" }}
+    <script src="{% static 'js/chat/chatSocket.js' %}" type="text/javascript"></script>  
+
+{% endblock %}

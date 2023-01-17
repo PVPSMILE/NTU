@@ -8,4 +8,34 @@
     <img src="/media/{{news.title_image.name}}" class="img-fluid py-3" alt="...">
 {% endif %}
 <p class="text-md-start py-3">{{news.discription}}</p>
+<!-- {% if news.author.photo.name == "depositphotos_199564354-stock-illustration-creative-vector-illustration-of-default.jpg" %}
+    <img src="/media/profile/{{news.author.photo.name}}" class="rounded-circle img-fluid py-3" alt="..." width="80" height="80">
+{% else %}
+    <img src="/media/{{news.author.photo.name}}" class="rounded-circle img-fluid py-3" alt="..." width="80" height="80">
+{% endif %}
+<p class="text">{{news.author.last_name}} {{news.author.first_name}}</p> -->
+<form method="post" id="form">
+    {% csrf_token %}
+    <input type="hidden" name="email" value="{{news.author.email}}"></input>
+</form>
+<div class="d-flex flex-row-reverse bd-highlight">
+    <div class="p-2 bd-highlight d-flex align-items-center">
+        <div class="d-flex flex-column bd-highlight">
+            <div class="bd-highlight"><button type="submit" form="form">{{news.author.last_name}} {{news.author.first_name}}</button></div>
+            <div class="bd-highlight">
+                <div class="d-flex flex-row bd-highlight mb-3">
+                    <div class="p-2 bd-highlight"><i class="fab fa-instagram fa-lg" style="color: #ac2bac;"></i></div>
+                    <div class="p-2 bd-highlight"><i class="fab fa-facebook-f fa-lg" style="color: #3b5998;"></i></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="p-2 bd-highlight">
+        {% if news.author.photo.name == "depositphotos_199564354-stock-illustration-creative-vector-illustration-of-default.jpg" %}
+            <img src="/media/profile/{{news.author.photo.name}}" class="rounded-circle img-fluid py-3" alt="..." width="80" height="80">
+        {% else %}
+            <img src="/media/{{news.author.photo.name}}" class="rounded-circle img-fluid py-3" alt="..." width="80" height="80">
+        {% endif %}
+    </div>
+</div>
 {% endblock %}

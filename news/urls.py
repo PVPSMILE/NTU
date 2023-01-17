@@ -13,5 +13,9 @@ urlpatterns = [
     path('article/detail/<int:pk>/',views.detail_article_page,name="detail_article"),
     path('article/create/',views.detail_create_article_page,name="create_article"),
     path('article/all/', views.all_article_page,name="all_news"),
-    path('article/all/detail/<int:pk>/', views.all_article_detail_page,name="all_detail_news")
+    path('article/all/detail/<int:pk>/', views.all_article_detail_page,name="all_detail_news"),
+    path('chats/', views.chats, name="chats"),
+    path('chat/<str:room_name>/', views.chat, name="chat"),
+    path('friends/', views.friends_page,name="friend"),
+    path('friend/<str:email>/', views.friend_detail_page,name="friend_detail"),
 ]

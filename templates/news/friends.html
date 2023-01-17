@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row">
+    <div class='col-lg-12'>
+        <ul class="list-unstyled mb-0" style="max-height: 800px; overflow-y:scroll;overflow-x:hidden; height: 680px;">
+            <div class="input-group rounded mb-3">
+                <form id="form" method="post">
+                    {% csrf_token %}
+                    <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" name="Find"/>
+                </form>
+                <button type="submit" form="form" class="btn btn-primary"><i class="fas fa-search"></i></button>
+            </div>
+            {% if friends %}
+                {% for friend in friends %}
+                    <li class="p-2 border-bottom" style="background-color: #eee;">
+                        <a href="#!" class="d-flex justify-content-between">
+                        <div class="d-flex flex-row">
+                            {% if friend.friend.photo.name == "depositphotos_199564354-stock-illustration-creative-vector-illustration-of-default.jpg" %}
+                                <img src="/media/profile/{{friend.friend.photo.name}}" alt="avatar" class="rounded-circle d-flex align-self-center me-3 shadow-1-strong" width="60">
+                            {% else %}
+                                <img src="/media/{{friend.friend.photo.name}}" alt="avatar" class="rounded-circle d-flex align-self-center me-3 shadow-1-strong" width="60">
+                            {% endif %}
+                            <div class="pt-1">
+                            <a href="{% url "news:friend_detail" friend.email %}"><p class="fw-bold mb-0">{{friend.friend.last_name}} {{friend.friend.first_name}}</p></a>
+                            </div>
+                        </div>
+                        </a>
+                    </li>
+                {% endfor %}
+            {% elif friend %}
+                <li class="p-2 border-bottom" style="background-color: #eee;">
+                    <a href="#!" class="d-flex justify-content-between">
+                    <div class="d-flex flex-row">
+                        {% if friend.photo.name == "depositphotos_199564354-stock-illustration-creative-vector-illustration-of-default.jpg" %}
+                            <img src="/media/profile/{{friend.photo.name}}" alt="avatar" class="rounded-circle " width="60">
+                        {% else %}
+                            <img src="/media/{{friend.photo.name}}" alt="avatar" class="rounded-circle" width="60">
+                        {% endif %}
+                        <div class="pt-1">
+                            <a href="{% url 'news:friend_detail' friend.email %}"><p class="fw-bold mb-0">{{friend.last_name}} {{friend.first_name}}</p></a>
+                        </div>
+                    </div>
+                    </a>
+                </li>
+            {% else %}
+                <div class="d-flex justify-content-center my-5">
+                    <h2>No any friends</h2>
+                </div>
+            {% endif %}
+        </ul>
+    </div>
+</div>
+{% endblock %}

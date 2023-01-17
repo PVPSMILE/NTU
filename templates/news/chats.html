@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+      <div class="row">
+  
+        <div class="col-md-6 col-lg-5 col-xl-4 mb-4 mb-md-0">
+  
+          <!-- <h5 class="font-weight-bold mb-3 text-center text-lg-start">Member</h5> -->
+          <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="btn" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true"><img src="{% static 'image/chat.png' %}" alt="" width="30"></button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="btn" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false"><img src="{% static 'image/friends.png' %}" alt="" width="30"></button>
+            </li>
+            <!-- <li class="nav-item" role="presentation">
+              <button class="btn" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Contact</button>
+            </li> -->
+          </ul>
+          <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                <div class="card">
+                    <div class="card-body">
+                      <ul class="list-unstyled mb-0" style="max-height: 600px; overflow-y:scroll;overflow-x:hidden; height: 600px;" id="chat">
+                        <div class="input-group rounded mb-3">
+                            <input type="search" class="form-control rounded" autocomplete="off" placeholder="Search" aria-label="Search"
+                              aria-describedby="search-addon" id="search" />
+                            <span class="input-group-text border-0" id="search-addon">
+                              <i class="fas fa-search"></i>
+                            </span>
+                        </div>
+                        {% for rooms in chats %}
+                            {% for room in rooms %} 
+                                <li class="p-2 border-bottom q">
+                                <a href="#!" class="d-flex justify-content-between chat">
+                                    <div class="d-flex flex-row chats">
+                                        <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-8.webp" alt="avatar" class="rounded-circle d-flex align-self-center me-3 shadow-1-strong" width="60">
+                                        <div class="email pt-1">
+                                            <a href="{% url 'news:chat' room.room_name %}"><p class="fw-bold mb-0">{{room.participant.last_name}} {{room.participant.first_name}}</p></a>
+                                            <p class="room" style="display: none;">{{room.room_name}}</p>
+                                            {% if last_messages %}
+                                                {% for message in last_messages %}
+                                                    {% if message.room_name == room.room_name %}
+                                                        <p class="small text-muted last_message">{{message.message}}</p>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            {% else %}
+                                                <p class="small text-muted last_message"></p>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <!-- <div class="pt-1">
+                                    <p class="small text-muted mb-1">Just now</p>
+                                    <span class="badge bg-danger float-end">1</span>
+                                    </div> -->
+                                </a>
+                                </li>
+                            {% endfor %}
+                        {% endfor %}
+                      </ul>
+          
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                <div class="card">
+                    <div class="card-body">
+                      <ul class="list-unstyled mb-0" style="max-height: 600px; overflow-y:scroll;overflow-x:hidden; height: 600px;" id="chat3">
+                        <div class="input-group rounded mb-3">
+                            <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
+                              aria-describedby="search-addon" id="search_friend"/>
+                            <span class="input-group-text border-0" id="search-addon">
+                              <i class="fas fa-search"></i>
+                            </span>
+                        </div>
+                        {% if friends %}
+                            {% for friend in friends %} 
+                                    <li class="p-2 border-bottom h">
+                                    <a href="#!" class="d-flex justify-content-between chat">
+                                        <div class="d-flex flex-row chats">
+                                            <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-8.webp" alt="avatar" class="rounded-circle d-flex align-self-center me-3 shadow-1-strong" width="60">
+                                            <div class="email pt-1">
+                                                <p class="fw-bold mb-0">{{friend.friend.last_name}} {{friend.friend.first_name}}</p>
+                                            </div>
+                                        </div>
+                                        <!-- <div class="pt-1">
+                                        <p class="small text-muted mb-1">Just now</p>
+                                        <span class="badge bg-danger float-end">1</span>
+                                        </div> -->
+                                    </a>
+                                    </li>
+                            {% endfor %}
+                        {% else %}
+                            <p>No any friends((</p>
+                        {% endif %}
+                      </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div> -->
+          </div>
+  
+  
+        </div>
+      </div>
+    <script src="{% static 'js/chat/notificationSocket.js' %}" type="text/javascript"></script>
+    {{ request.session.Name|json_script:"Name" }}
+    {{ request.session.Email|json_script:"Email" }}
+    {{ request.session.Surname|json_script:"Surname" }}
+{% endblock %}

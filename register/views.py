@@ -67,11 +67,14 @@ def send_code(request):
     forms = CodeForm(request)
     return render(request, 'register/codes.html', locals())
 def login(request):
+    forms = AuthorizationForm()
+    response = render(request, 'register/login.html', locals())
     if request.method == "POST":
         forms = AuthorizationForm(request.POST)
         if forms.is_valid():
             data = RegistrationModel.objects.filter(password=forms.cleaned_data["password"],email=forms.cleaned_data["email"])[0]
             request.session["Name"] = data.first_name
+            request.session["Surname"] = data.last_name
             request.session["Email"] = forms.cleaned_data["email"]
             request.session["Auth"] = True
             request.session["id"] = data.id
@@ -80,11 +83,11 @@ def login(request):
             else:
                 request.session["Path_Image"] = "/media/" + data.photo.name
             request.session["Role"] = data.role.name
+            response.set_cookie('Email', forms.cleaned_data["email"])
             return redirect("/")
         else:
             return render(request, 'register/login.html', locals())
-    forms = AuthorizationForm()
-    return render(request, 'register/login.html', locals())
+    return response
 def sing_out(request):
     request.session["Auth"] = False
     return redirect("/")

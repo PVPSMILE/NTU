@@ -9,6 +9,7 @@ psycopg2 = "*"
 pillow = "*"
 channels = "*"
 daphne = "*"
+channels-redis = "*"
 
 [dev-packages]
 
